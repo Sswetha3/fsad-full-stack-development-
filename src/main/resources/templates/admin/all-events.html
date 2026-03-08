@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>All Events</title>
+</head>
+<body>
+
+<h2>All Events</h2>
+
+<!-- Sample event -->
+<div>
+    <h4>Tech Fest</h4>
+    <p>Status: ACTIVE</p>
+
+    <form method="post" action="/admin/cancel">
+        <input type="hidden" name="eventId" value="1">
+        <button type="submit">Cancel</button>
+    </form>
+
+    <form method="post" action="/admin/postpone">
+        <input type="hidden" name="eventId" value="1">
+        <button type="submit">Postpone</button>
+    </form>
+
+    <form method="post" action="/admin/prepone">
+        <input type="hidden" name="eventId" value="1">
+        <button type="submit">Prepone</button>
+    </form>
+</div>
+
+<br>
+<a href="/admin/dashboard">Back</a>
+
+</body>
+</html>

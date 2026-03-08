@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Admin Dashboard</title>
+</head>
+<body>
+
+<h2>Admin Dashboard</h2>
+
+<a href="/admin/create-event">Create Event</a>
+
+<hr>
+
+<h3>All Events</h3>
+
+<table border="1">
+    <tr>
+        <th>Event</th>
+        <th>Date</th>
+        <th>Tickets Left</th>
+        <th>Status</th>
+        <th>Action</th>
+    </tr>
+
+    <tr th:each="e : ${events}">
+        <td th:text="${e.title}"></td>
+        <td th:text="${e.eventDate} + ' ' + ${e.eventTime}"></td>
+        <td th:text="${e.remainingTickets}"></td>
+        <td th:text="${e.status}"></td>
+
+        <td>
+            <form th:action="@{'/admin/cancel/' + ${e.id}}" method="post">
+                <button>Cancel</button>
+            </form>
+        </td>
+    </tr>
+</table>
+
+</body>
+</html>

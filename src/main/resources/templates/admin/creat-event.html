@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Create Event</title>
+</head>
+<body>
+
+<h2>Create Event</h2>
+
+<form method="post" action="/admin/create-event">
+
+    <label>Event Name:</label>
+    <input type="text" name="title" required><br><br>
+
+    <label>Event Type:</label>
+    <select name="eventType">
+        <option value="IN_COLLEGE">In College (@klh.edu.in)</option>
+        <option value="OFF_COLLEGE">Off College (Open)</option>
+    </select><br><br>
+
+    <label>Total Tickets:</label>
+    <input type="number" name="totalTickets" required><br><br>
+
+    <label>Date:</label>
+    <input type="date" name="eventDate"><br><br>
+
+    <label>Time:</label>
+    <input type="time" name="eventTime"><br><br>
+
+    <button type="submit">Create Event</button>
+
+</form>
+
+</body>
+</html>

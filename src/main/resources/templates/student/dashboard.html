@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Student Dashboard</title>
+</head>
+<body>
+
+<h2>Available Events</h2>
+
+<div th:if="${events == null || events.isEmpty()}">
+    <p>No events available</p>
+</div>
+
+<div th:each="e : ${events}">
+    <p>
+        <b th:text="${e.title}"></b><br>
+        Date: <span th:text="${e.dateTime}"></span><br>
+        Remaining Tickets: <span th:text="${e.remainingTickets}"></span>
+    </p>
+
+    <form th:action="@{/student/apply/{id}(id=${e.id})}" method="post">
+        <button type="submit">Apply</button>
+    </form>
+
+    <hr>
+</div>
+
+</body>
+</html>
