@@ -1,26 +1,31 @@
 package com.example.demo.service;
 
-import java.util.Optional;
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.entity.User;
 import com.example.demo.repository.UserRepository;
 
+import java.util.Optional;
+
 @Service
 public class UserService {
 
-    private final UserRepository userRepo;
+    @Autowired
+    private UserRepository userRepository;
 
-    public UserService(UserRepository userRepo) {
-        this.userRepo = userRepo;
+    public User register(User user) {
+        return userRepository.save(user);
     }
 
-    public Optional<User> findByEmail(String email) {
-        return userRepo.findByEmail(email);
-    }
+    public Optional<User> login(String email, String password) {
 
-    public User save(User user) {
-        return userRepo.save(user);
+        Optional<User> user = userRepository.findByEmail(email);
+
+        if (user.isPresent() && user.get().getPassword().equals(password)) {
+            return user;
+        }
+
+        return Optional.empty();
     }
 }

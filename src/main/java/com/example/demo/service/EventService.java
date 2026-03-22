@@ -1,30 +1,16 @@
 package com.example.demo.service;
 
+import com.example.demo.entity.Event;
+import com.example.demo.entity.User;
 import java.util.List;
 
-import org.springframework.stereotype.Service;
+public interface EventService {
 
-import com.example.demo.entity.Event;
-import com.example.demo.repository.EventRepository;
+    Event createEvent(Event event);
 
-@Service
-public class EventService {
+    List<Event> getAllEvents();
 
-    private final EventRepository eventRepo;
-
-    public EventService(EventRepository eventRepo) {
-        this.eventRepo = eventRepo;
-    }
-
-    public List<Event> getAllEvents() {
-        return eventRepo.findAll();
-    }
-
-    public Event getEvent(Long id) {
-        return eventRepo.findById(id).orElseThrow();
-    }
-
-    public Event save(Event event) {
-        return eventRepo.save(event);
-    }
+    List<Event> getAvailableEvents(User user);  
+    void deleteEvent(Long id);// ✅ ADD THIS
+    Event getEventById(Long id);
 }

@@ -1,105 +1,68 @@
 package com.example.demo.entity;
-
 import java.time.LocalDateTime;
-
 import jakarta.persistence.*;
 
+
 @Entity
-@Table(name = "events")
 public class Event {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
-
-    private String title;
-
-    private int totalTickets;
-
-    private int remainingTickets;
-
-    // IN_COLLEGE or OFF_COLLEGE
-    private String eventType;
-
-    // @klh.edu.in or ALL
-    private String emailRestriction;
-
-    // ACTIVE, CANCELLED, POSTPONED, PREPONED
-    private String status;
-
-    private boolean locked;
-
     private LocalDateTime eventDateTime;
+    @Column(length=1000)
+    private String instructions;
+    private String eventName;
+    private int maxTickets;
+    private int bookedTickets;
 
-    @ManyToOne
-    private University university;
-
-    // ================= GETTERS & SETTERS =================
-
-    public Long getId() {
+    // IMPORTANT FIELD
+    private String allowedDomain;   // "ALL" or "klh.edu.in"
+       public Long getId() {
         return id;
     }
+       public String getStatus() {
+    	    if (eventDateTime == null) return "UNKNOWN";
 
+    	    return eventDateTime.isBefore(LocalDateTime.now())
+    	            ? "COMPLETED"
+    	            : "UPCOMING";
+    	}
     public void setId(Long id) {
         this.id = id;
     }
 
-    public String getTitle() {
-        return title;
+    public String getEventName() {
+        return eventName;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
+    public void setEventName(String eventName) {
+        this.eventName = eventName;
     }
 
-    public int getTotalTickets() {
-        return totalTickets;
+    public int getMaxTickets() {
+        return maxTickets;
     }
 
-    public void setTotalTickets(int totalTickets) {
-        this.totalTickets = totalTickets;
+    public void setMaxTickets(int maxTickets) {
+        this.maxTickets = maxTickets;
     }
 
-    public int getRemainingTickets() {
-        return remainingTickets;
+    public int getBookedTickets() {
+        return bookedTickets;
     }
 
-    public void setRemainingTickets(int remainingTickets) {
-        this.remainingTickets = remainingTickets;
+    public void setBookedTickets(int bookedTickets) {
+        this.bookedTickets = bookedTickets;
     }
 
-    public String getEventType() {
-        return eventType;
+    public String getAllowedDomain() {
+        return allowedDomain;
     }
 
-    public void setEventType(String eventType) {
-        this.eventType = eventType;
+    public void setAllowedDomain(String allowedDomain) {
+        this.allowedDomain = allowedDomain;
     }
-
-    public String getEmailRestriction() {
-        return emailRestriction;
-    }
-
-    public void setEmailRestriction(String emailRestriction) {
-        this.emailRestriction = emailRestriction;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
-    }
-
-    public boolean isLocked() {
-        return locked;
-    }
-
-    public void setLocked(boolean locked) {
-        this.locked = locked;
-    }
-
     public LocalDateTime getEventDateTime() {
         return eventDateTime;
     }
@@ -108,11 +71,11 @@ public class Event {
         this.eventDateTime = eventDateTime;
     }
 
-    public University getUniversity() {
-        return university;
+    public String getInstructions() {
+        return instructions;
     }
 
-    public void setUniversity(University university) {
-        this.university = university;
+    public void setInstructions(String instructions) {
+        this.instructions = instructions;
     }
 }

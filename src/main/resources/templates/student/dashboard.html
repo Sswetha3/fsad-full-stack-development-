@@ -1,28 +1,62 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <title>Student Dashboard</title>
+<title>Student Dashboard</title>
+
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
-<body>
 
-<h2>Available Events</h2>
+<body class="bg-light">
 
-<div th:if="${events == null || events.isEmpty()}">
-    <p>No events available</p>
+<div th:replace="~{fragments/navbar :: body}"></div>
+
+<div class="container mt-4">
+
+<!-- MESSAGE -->
+<p th:if="${message}" class="alert alert-success" th:text="${message}"></p>
+
+<h3><i class="fas fa-calendar"></i> Available Events</h3>
+
+<div class="row">
+
+<div class="col-md-4 mb-3" th:each="e : ${events}">
+<div class="card p-3 shadow">
+
+<h5 th:text="${e.eventName}"></h5>
+
+<p>
+<b>Date:</b>
+<span th:text="${#temporals.format(e.eventDateTime,'dd MMM yyyy HH:mm')}"></span>
+</p>
+
+<p>
+Tickets:
+<span th:text="${e.bookedTickets}"></span> /
+<span th:text="${e.maxTickets}"></span>
+</p>
+
+<!-- BOOK BUTTON -->
+<form action="/student/book" method="post">
+
+<input type="hidden" name="eventId" th:value="${e.id}" />
+<input type="hidden" name="userId" th:value="${session.loggedUser.id}" />
+
+<button class="btn btn-success w-100">
+<i class="fas fa-check"></i> Book
+</button>
+
+</form>
+
+</div>
 </div>
 
-<div th:each="e : ${events}">
-    <p>
-        <b th:text="${e.title}"></b><br>
-        Date: <span th:text="${e.dateTime}"></span><br>
-        Remaining Tickets: <span th:text="${e.remainingTickets}"></span>
-    </p>
+</div>
 
-    <form th:action="@{/student/apply/{id}(id=${e.id})}" method="post">
-        <button type="submit">Apply</button>
-    </form>
+<a href="/student/applied" class="btn btn-primary mt-3">
+<i class="fas fa-ticket-alt"></i> My Events
+</a>
 
-    <hr>
 </div>
 
 </body>

@@ -15,17 +15,27 @@ public class Ticket {
     @ManyToOne
     private Event event;
 
-    public Ticket() {}
-
-    public Ticket(User user, Event event) {
-        this.user = user;
-        this.event = event;
+    public Long getId() {
+        return id;
     }
 
-    public Long getId() { return id; }
-    public User getUser() { return user; }
-    public Event getEvent() { return event; }
+    public User getUser() {
+        return user;
+    }
 
-    public void setUser(User user) { this.user = user; }
-    public void setEvent(Event event) { this.event = event; }
+    public Event getEvent() {
+        return event;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public void setEvent(Event event) {
+        this.event = event;
+    }
 }
